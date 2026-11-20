@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=83.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+authors = [
+    {name = "James Demetris"},
+]
+name            = "personal-testing-tools"
+readme          = "README.md"
+requires-python = ">=3.12"
+dynamic         = ["version"]
+
+[tool.coverage.run]
+omit = [
+    "*/__init__.py"
+]
+
+[tool.mypy]
+exclude = "build/"
+ignore_missing_imports = true  # Handled by ruff
+disallow_subclassing_any = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+warn_redundant_casts = true
+warn_return_any = false  # All false-positives
+no_implicit_reexport = false
+strict_equality = true
+strict_bytes = true
+extra_checks = true
+
+[[tool.mypy.overrides]]
+module = "tests/*"
+disable_error_code = ["no-untyped-def"]
+
+[tool.setuptools.dynamic]
+version = {file = "version.txt"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["personal_testing_tools*"]

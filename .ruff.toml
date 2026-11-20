@@ -1,0 +1,52 @@
+line-length = 88
+indent-width = 4
+
+target-version = "py312"
+
+exclude = ["*.ipynb", "test.py"]
+
+[lint]
+select = ["ALL"]
+
+# C416: Unnecessary Comprehension (Slower)
+# COM812: Trailing Comma (Only covers single line trailing commas, seems out of place)
+# CPY: Copyright
+# D102: Undocumented public method
+# D105: Undocumented magic method
+# D107: Undocumented public __init__
+# D202: Newline after doc string (Less readable)
+# D203: Blank line before class (Incompatible with D211)
+# D205: Missing blank line after summary (Needless whitespace)
+# D209: Multi-line doc string end quote on new line
+# D213: Multi-line summary second line (Incompatible with D212)
+# D401: First line of docstring should be in imperative mood
+# D415: Missing terminal punctuatiom (redundant with D400)
+# EM: Error messages
+# FBT: Boolean Trap (Slower)
+# FIX: Fix me
+# PLR2004: Magic value used in comparison
+# PTH: Use Pathlib (Wants slower API used)
+# RET505: No else return
+# SIM105: Slower exception suppression (Wants slower check used)
+# TD002: Missing author in TODO
+# TD003: Missing issue link in TODO
+# TRY003: Avoid specifying long messages outside the exception class (Slower and less clear)
+ignore = ["C416", "COM812", "CPY", "D102", "D105", "D107", "D202", "D203", "D205", "D209", "D213", "D401", "D415", "EM", "FBT", "FIX", "PLR2004", "PTH", "RET505", "SIM105", "TD002", "TD003", "TRY003"]
+
+[lint.extend-per-file-ignores]
+
+# D100: Missing docstring in public module
+"setup.py" = ["D100"]
+
+# ANN201: Missing return type
+# D102: Missing docstring in public class
+# PT011: Pytest raises
+# S101: Assert
+"tests/*" = ["ANN201", "D101", "PT011", "S101"]
+
+# D104: Missing docstring in public package
+"tests/__init__.py" = ["D104"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
