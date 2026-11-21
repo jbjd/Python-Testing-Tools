@@ -13,6 +13,7 @@ dynamic         = ["version"]
 
 [tool.coverage.run]
 omit = [
+    "mark.py",
     "*/__init__.py"
 ]
 

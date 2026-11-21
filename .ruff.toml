@@ -27,11 +27,12 @@ select = ["ALL"]
 # PLR2004: Magic value used in comparison
 # PTH: Use Pathlib (Wants slower API used)
 # RET505: No else return
+# S101: Assert
 # SIM105: Slower exception suppression (Wants slower check used)
 # TD002: Missing author in TODO
 # TD003: Missing issue link in TODO
 # TRY003: Avoid specifying long messages outside the exception class (Slower and less clear)
-ignore = ["C416", "COM812", "CPY", "D102", "D105", "D107", "D202", "D203", "D205", "D209", "D213", "D401", "D415", "EM", "FBT", "FIX", "PLR2004", "PTH", "RET505", "SIM105", "TD002", "TD003", "TRY003"]
+ignore = ["C416", "COM812", "CPY", "D102", "D105", "D107", "D202", "D203", "D205", "D209", "D213", "D401", "D415", "EM", "FBT", "FIX", "PLR2004", "PTH", "RET505", "S101", "SIM105", "TD002", "TD003", "TRY003"]
 
 [lint.extend-per-file-ignores]
 
@@ -41,8 +42,7 @@ ignore = ["C416", "COM812", "CPY", "D102", "D105", "D107", "D202", "D203", "D205
 # ANN201: Missing return type
 # D102: Missing docstring in public class
 # PT011: Pytest raises
-# S101: Assert
-"tests/*" = ["ANN201", "D101", "PT011", "S101"]
+"tests/*" = ["ANN201", "D101", "PT011"]
 
 # D104: Missing docstring in public package
 "tests/__init__.py" = ["D104"]

@@ -8,5 +8,5 @@ override PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
 export PYTEST_DISABLE_PLUGIN_AUTOLOAD
 
 test:
-	coverage run --source=personal_testing_tools -m unittest discover -s tests
+	python -m coverage run --source=personal_testing_tools -m pytest
 	@coverage report -m
