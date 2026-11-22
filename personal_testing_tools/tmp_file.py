@@ -25,6 +25,12 @@ class TmpFileInput:
 
 
 class TmpFile:
+    """A temporary file used for testing. Only usable as a context manager.
+    Unlike builtin tempfile, this class does not keep the file open so it
+    can be modified in the context.
+
+    :param test_file: Check `TmpFileInput` for input details"""
+
     __slots__ = ("_test_file", "_tmp_file")
 
     def __init__(self, test_file: TmpFileInput) -> None:
@@ -59,7 +65,7 @@ class TmpFile:
         os.remove(self._tmp_file.name)
 
 
-class TmpFileInFolderInput(TmpFileInput):
+class TmpFileInDirInput(TmpFileInput):
     """Input values for testing files in a temp folder.
 
     :param name: File name
@@ -82,11 +88,17 @@ class TmpFileInFolderInput(TmpFileInput):
         self.rel_dir_path: str = rel_dir_path
 
 
-class TmpFolder:
+class TmpDir:
+    """A temporary folder used for testing. Only usable as a context manager.
+    Unlike builtin tempfile, this class does not keep the files open so they
+    can be modified in the context.
+
+    :param test_file: Check `TmpFileInDirInput` for input details"""
+
     __slots__ = ("_temp_folder", "_test_files")
 
-    def __init__(self, test_files: Iterable[TmpFileInFolderInput]) -> None:
-        self._test_files: Iterable[TmpFileInFolderInput] = test_files
+    def __init__(self, test_files: Iterable[TmpFileInDirInput]) -> None:
+        self._test_files: Iterable[TmpFileInDirInput] = test_files
         self._temp_folder: IO[bytes]
 
     def __enter__(self) -> str:
@@ -94,7 +106,7 @@ class TmpFolder:
 
         try:
             for test_file in self._test_files:
-                file_path: str = self._get_full_path(test_file.rel_dir_path)
+                file_path: str = self._get_full_path(test_file)
 
                 # Only need to makedirs if a relative dir path was provided
                 if test_file.rel_dir_path:
@@ -124,7 +136,7 @@ class TmpFolder:
     def _clean_up(self) -> None:
         shutil.rmtree(self._temp_folder.name)
 
-    def _get_full_path(self, test_file: TmpFileInFolderInput) -> str:
+    def _get_full_path(self, test_file: TmpFileInDirInput) -> str:
         return os.path.join(
             self._temp_folder.name, test_file.rel_dir_path, test_file.name
         )
