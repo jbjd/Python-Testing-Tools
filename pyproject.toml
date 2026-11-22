@@ -11,6 +11,20 @@ readme          = "README.md"
 requires-python = ">=3.12"
 dynamic         = ["version"]
 
+[project.optional-dependencies]
+psleak = [
+    "psleak<1",
+]
+
+[dependency-groups]
+dev = [
+    "codespell==2.4.3",
+    "coverage~=7.17",
+    "mypy==2.4.1",
+    "pytest~=9.2.0",
+    "ruff==0.17.5",
+]
+
 [tool.coverage.run]
 omit = [
     "mark.py",
