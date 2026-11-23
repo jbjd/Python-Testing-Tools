@@ -28,8 +28,6 @@ class TempEnvVars:
         self._reset_env_var("PYTHONMALLOC", self._malloc_real)
         self._reset_env_var("PYTHONUNBUFFERED", self._buffered_real)
 
-        return False  # Do not suppress exception if present
-
     @staticmethod
     def _reset_env_var(env_var: str, value: str | None) -> None:
         if value is not None:

@@ -43,10 +43,11 @@ class TmpFile:
         )
 
         try:
-            self._tmp_file.write(self._test_file.content)
-            self._tmp_file.close()
+            try:
+                self._tmp_file.write(self._test_file.content)
+            finally:
+                self._tmp_file.close()
         except OSError:
-            self._tmp_file.close()
             self._clean_up()
             raise
 
@@ -58,8 +59,6 @@ class TmpFile:
                 assert fp.read() == self._test_file.expected
 
         self._clean_up()
-
-        return False  # Do not suppress exception if present
 
     def _clean_up(self) -> None:
         os.remove(self._tmp_file.name)
@@ -99,7 +98,7 @@ class TmpDir:
 
     def __init__(self, test_files: Iterable[TmpFileInDirInput]) -> None:
         self._test_files: Iterable[TmpFileInDirInput] = test_files
-        self._temp_folder: IO[bytes]
+        self._temp_folder: tempfile.TemporaryDirectory
 
     def __enter__(self) -> str:
         self._temp_folder = tempfile.TemporaryDirectory(delete=False)
@@ -130,8 +129,6 @@ class TmpDir:
                     assert fp.read() == test_file.expected
 
         self._clean_up()
-
-        return False  # Do not suppress exception if present
 
     def _clean_up(self) -> None:
         shutil.rmtree(self._temp_folder.name)

@@ -8,7 +8,7 @@ from psleak import MemoryLeakTestCase
 def _raise_if_bad_env_value(env_var: str, expected: str) -> None:
     """Raises if env value isn't set to `expected`.
 
-    :param env_var: Enviornment variable to check
+    :param env_var: Environment variable to check
     :param expected: The expected value
     :raises ValueError: If value is unexpected"""
 

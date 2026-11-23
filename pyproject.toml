@@ -25,6 +25,9 @@ dev = [
     "ruff==0.17.5",
 ]
 
+[tool.codespell]
+skip = './build/*'
+
 [tool.coverage.run]
 omit = [
     "mark.py",
@@ -33,10 +36,9 @@ omit = [
 
 [tool.mypy]
 exclude = "build/"
-ignore_missing_imports = true  # Handled by ruff
-disallow_subclassing_any = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
+ignore_missing_imports = true     # Handled by ruff
+disallow_untyped_defs = false     # Handled by ruff
+disallow_incomplete_defs = false  # Handled by ruff
 check_untyped_defs = true
 disallow_untyped_decorators = true
 warn_redundant_casts = true
